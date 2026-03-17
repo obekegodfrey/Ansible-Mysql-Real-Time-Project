@@ -3,15 +3,15 @@
 **Project Goal**  
 Automate MySQL database backup on an AWS EC2 Ubuntu instance and store the backup in an S3 bucket using Ansible.
 
-## Steps Involved
+#### Steps Involved
 
 1. **Install MySQL on EC2 Ubuntu Machine**  
    Set up and configure MySQL database server on a Ubuntu-based EC2 instance.
-    # Installing MySQL 8.0 on Ubuntu (e.g., Ubuntu 20.04, 22.04, or 24.04)
+   Installing MySQL 8.0 on Ubuntu (e.g., Ubuntu 20.04, 22.04, or 24.04)
 
 These commands install the official MySQL Community Server 8.0 from the MySQL APT repository.
 
-### Step-by-step Installation
+#### Step-by-step Installation
 
     1. **Update package index**
         ```bash
@@ -40,6 +40,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
         mysql --version
         # or
         mysql -u root -p -e "SELECT VERSION();"
+
 
 2. **Create Database and Table on MySQL**  
    Create a sample database and at least one table to demonstrate backup functionality.
@@ -76,6 +77,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
         
 3. **Install AWS CLI on EC2 Instance and Configure the Credentials**  
    Install the AWS Command Line Interface and configure it with appropriate IAM credentials (preferably using an EC2 instance role).
+
     1. **Update package list and install unzip**
         sudo apt update && sudo apt install -y unzip
 
@@ -92,6 +94,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
     5. **Configure AWS credentials**
         aws configure
 
+
 4. **Install Ansible**  
    Install Ansible on the EC2 instance (or on a separate control node, depending on your setup).
    
@@ -107,13 +110,13 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
     4. **Verify installation**
         ansible --version
 
-5. **Write the Ansible Playbook**  
-   Create an Ansible playbook that:  
-   - Takes a MySQL database backup (using `mysqldump`)  
-   - Optionally compresses the backup file  
-   - Uploads the backup to an AWS S3 bucket
+    5. **Write the Ansible Playbook**  
+      Create an Ansible playbook that:  
+       - Takes a MySQL database backup (using `mysqldump`)  
+       - Optionally compresses the backup file  
+       - Uploads the backup to an AWS S3 bucket
 
-    ###Ansible Playbook - MySQL Backup to S3 Bucket
+    Ansible Playbook - MySQL Backup to S3 Bucket
 
     Create a playbook file to take a MySQL backup and upload it to AWS S3.
 
@@ -121,6 +124,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
     
       **Run the following command to create the playbook file:**
         vi main.yaml
+
     2. **Paste the following content into main.yaml:**   
         ---
         - name: MySQL Backup and Upload to S3
@@ -148,5 +152,5 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
               debug:
                 msg: "Backup successfully uploaded to S3 bucket: ansible-mysql-bucket"
                 
-       3. **Run the Playbook**    
-           ansible-playbook main.yaml
+    3. **Run the Playbook**    
+          ansible-playbook main.yaml
