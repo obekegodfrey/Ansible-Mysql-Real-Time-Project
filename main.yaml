@@ -1,0 +1,26 @@
+---
+- name: MySQL Backup and Upload to S3
+  hosts: localhost
+  become: yes
+  tasks:
+
+    - name: Take MySQL backup using mysqldump
+      shell: >
+        mysqldump -u root 
+        --password="12345678" 
+        Morise tblEmployee1 > /tmp/Morise_backup.sql
+      args:
+        creates: /tmp/Morise_backup.sql
+      register: backup_result
+
+    - name: Display backup status
+      debug:
+        msg: "MySQL backup completed successfully at /tmp/Morise_backup.sql"
+
+    - name: Upload MySQL backup to S3 bucket
+      shell: aws s3 cp /tmp/Morise_backup.sql s3://ansible-mysql-bucket/
+      register: upload_result
+
+    - name: Display upload status
+      debug:
+        msg: "Backup successfully uploaded to S3 bucket: ansible-mysql-bucket"
