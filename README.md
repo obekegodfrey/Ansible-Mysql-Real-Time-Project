@@ -40,7 +40,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
         mysql --version
         # or
         mysql -u root -p -e "SELECT VERSION();"
-
+    ```
 
 2. **Create Database and Table on MySQL**  
    Create a sample database and at least one table to demonstrate backup functionality.
@@ -52,64 +52,87 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
     ### Step-by-Step Commands
 
     1. **Login to MySQL Server**
-        ```bash
+    ```bash
          sudo mysql
+    ```     
     Note: On fresh Ubuntu installations with MySQL 8.0, you can log in as root without a password using sudo mysql.
     If you have set a root password, use: mysql -u root -p
-    2. **Show existing databases**
+    2. **Show existing databases*
+    ```bash
         SHOW DATABASES;
+    ```    
     3. **Create a new database** 
+    ```bash
         CREATE DATABASE Morise;
+    ```    
     4. **Switch to the newly created database**
+    ```bash
         USE Morise;
+    ```    
     5. **Create a table**
+    ```bash
         CREATE TABLE tblEmployee1 (
         Employee_first_name VARCHAR(500) NOT NULL,
         Employee_last_name  VARCHAR(500) NOT NULL
         );
+    ```    
     6. **Insert sample data**
+    ```bash
         INSERT INTO tblEmployee1 (Employee_first_name, Employee_last_name)
         VALUES ('Obeke', 'Godfrey');
+    ```
     7. **Verify the data**
+    ```bash
         SELECT * FROM tblEmployee1;
+    ```    
     8. **Exit MySQL shell**
+    ```bash
         EXIT;
+    ```    
         
 3. **Install AWS CLI on EC2 Instance and Configure the Credentials**  
    Install the AWS Command Line Interface and configure it with appropriate IAM credentials (preferably using an EC2 instance role).
 
     1. **Update package list and install unzip**
+    ```bash
         sudo apt update && sudo apt install -y unzip
-
+    ```    
     2. **Download AWS CLI v2**
+    ```bash
         curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-
+    ```    
     3. **Unzip and install**
+    ```bash
         unzip awscliv2.zip
         sudo ./aws/install
-
+    ```    
     4. **Verify installation**
+    ```bash
         aws --version
-
+    ```
     5. **Configure AWS credentials**
+    ```bash
         aws configure
-
-
+    ```
 4. **Install Ansible**  
    Install Ansible on the EC2 instance (or on a separate control node, depending on your setup).
    
     1. **Update system and install dependencies**
+    ```bash
         sudo apt update && sudo apt install -y software-properties-common
-
+    ```
     2. **Add Ansible official PPA**
+    ```bash
         sudo add-apt-repository --yes --update ppa:ansible/ansible
-
+    ```
     3. **Install Ansible**
+    ```bash
         sudo apt install -y ansible
-
+    ```
     4. **Verify installation**
+    ```bash
         ansible --version
-
+    ```
     5. **Write the Ansible Playbook**  
       Create an Ansible playbook that:  
        - Takes a MySQL database backup (using `mysqldump`)  
@@ -123,9 +146,12 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
     1. **Create the Playbook**
     
       **Run the following command to create the playbook file:**
+    ``bash
         vi main.yaml
-
+    ```
     2. **Paste the following content into main.yaml:**   
+        
+        ```
         ---
         - name: MySQL Backup and Upload to S3
           hosts: localhost
@@ -151,6 +177,33 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
             - name: Display upload status
               debug:
                 msg: "Backup successfully uploaded to S3 bucket: ansible-mysql-bucket"
+        ```        
                 
-    3. **Run the Playbook**    
+    3. **Run the Playbook**   
+    ```bash 
           ansible-playbook main.yaml
+    ```
+## 🛠️ Author & Community
+
+This project is maintained by **[Obeke Godfrey Vicent](https://github.com/obekegodfrey)** 💡.
+Your feedback and contributions are welcome!
+
+📧 **Connect with me:**
+- **GitHub**: [@ObekeGodfreyVicent](https://github.com/obekegodfrey)
+- **Blog**: [Obeke Godfrey Vicent Blog](https://blog.obekegodfreyvicent.com)
+- **Telegram Community**: [Join Here](https://t.me/ObekeGodfreyVicent)
+- **LinkedIn**: [Obeke Godfrey Vicent](https://www.linkedin.com/in/obeke-godfrey-vicent-36216a336/)
+
+---
+
+## ⭐ Support the Project
+
+If you found this project helpful, please consider:
+- **Starring** ⭐ the repository
+- **Sharing** it with your network
+- **Contributing** to its improvement
+
+### 📢 Stay Connected
+
+> [!Important]
+> This documentation is continuously evolving. For the latest updates, please check the repository regularly.          
