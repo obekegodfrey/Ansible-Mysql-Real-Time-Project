@@ -14,34 +14,47 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
 #### Step-by-step Installation
 
     1. **Update package index**
-        ```bash
+    ```bash
         sudo apt update
+    ```
     2. **Install required tools (if not already present)**
+    ```bash
         sudo apt install -y wget gnupg lsb-release
+    ```    
     3. **Download and add the MySQL APT repository**
+    ```bash
         wget https://repo.mysql.com/mysql-apt-config_0.8.32-1_all.deb
         sudo dpkg -i mysql-apt-config_0.8.32-1_all.deb
-        
+    ``` 
         **Note**
         During installation of the .deb package, a configuration window will appear.
         Select MySQL Server & Cluster → mysql-8.0 → OK
+
     4. **Update package index again after adding the repo** 
+    ```bash
         sudo apt update
+    ```    
     5. **Install MySQL Server 8.0**
+    ```bash
         sudo apt install -y mysql-server
+    ```
     6. **(Optional) Secure the installation (highly recommended)**
+    ```bash
         sudo mysql_secure_installation
+    ```    
     7. **Check MySQL service status;Start / Restart / Enable MySQL service (if needed)**
+    ```bash
         sudo systemctl status mysql
         sudo systemctl start mysql
         sudo systemctl enable mysql
         sudo systemctl restart mysql
+    ```
     8. **Verify MySQL version** 
+    ```bash
         mysql --version
         # or
         mysql -u root -p -e "SELECT VERSION();"
     ```
-
 2. **Create Database and Table on MySQL**  
    Create a sample database and at least one table to demonstrate backup functionality.
     
@@ -88,8 +101,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
     8. **Exit MySQL shell**
     ```bash
         EXIT;
-    ```    
-        
+    ```   
 3. **Install AWS CLI on EC2 Instance and Configure the Credentials**  
    Install the AWS Command Line Interface and configure it with appropriate IAM credentials (preferably using an EC2 instance role).
 
@@ -134,6 +146,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
         ansible --version
     ```
     5. **Write the Ansible Playbook**  
+
       Create an Ansible playbook that:  
        - Takes a MySQL database backup (using `mysqldump`)  
        - Optionally compresses the backup file  
@@ -142,7 +155,6 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
     Ansible Playbook - MySQL Backup to S3 Bucket
 
     Create a playbook file to take a MySQL backup and upload it to AWS S3.
-
     1. **Create the Playbook**
     
       **Run the following command to create the playbook file:**
@@ -151,7 +163,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
     ```
     2. **Paste the following content into main.yaml:**   
         
-        ```
+    ```
         ---
         - name: MySQL Backup and Upload to S3
           hosts: localhost
@@ -177,7 +189,7 @@ These commands install the official MySQL Community Server 8.0 from the MySQL AP
             - name: Display upload status
               debug:
                 msg: "Backup successfully uploaded to S3 bucket: ansible-mysql-bucket"
-        ```        
+     ```        
                 
     3. **Run the Playbook**   
     ```bash 
